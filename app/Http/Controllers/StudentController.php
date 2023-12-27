@@ -28,8 +28,25 @@ class StudentController extends Controller
 
         // return to_route();
     }
-    public function studentShow(){
-        $student_data=Student::all();
+    public function studentShow()
+    {
+        $student_data = Student::all();
         return response()->json($student_data);
+    }
+
+    public function studentEdit($id)
+    {
+        // dd('achi');
+
+        $student_info = Student::find($id);
+        // dd($student_info);
+        if ($student_info) {
+            return response()->json($student_info);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Student Found'
+            ]);
+        }
     }
 }

@@ -2,7 +2,7 @@
     <h1 style="text-align: center">Student Info</h1>
     <hr />
     <div id="student_data" class="mx- my-3">
-        <form id="form" @submit.prevent="studentData" enctype="multipart/form-data">
+        <form id="form" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="">Name</label>
@@ -20,25 +20,12 @@
                         placeholder="Contact" />
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputAddress">Address</label><br />
-                <textarea v-model="student_info.address" name="" id="address" class="form-control" cols="30"
-                    rows="10"></textarea>
-            </div>
+
             <div class="form-group">
                 <label for="">Birthday</label><br />
                 <input v-model="student_info.dob" type="date" id="dob" class="form-control" name="dob" />
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="dept">Department</label>
-                    <select v-model="student_info.dept" id="dept" class="form-control">
-                        <option value="cse">CSE</option>
-                        <option value="ce">CE</option>
-                        <option value="ag">AG</option>
-                    </select>
-                </div>
-            </div>
+
             <label for="">Gender:</label>
 
             <div class="form-group">
@@ -55,46 +42,51 @@
                     </label>
                 </div>
             </div>
-            <div>
-                <label for="">Image</label>
-                <input @change="onFileSelected" name="image" type="file" class="form-control" accept="image/*" />
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <button type="submit" @click.prevent="studentUpdate" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </template>
-
 <script>
-// console.log("helo");
 import axios from "axios";
+
 export default {
-    name: "Student_Data",
+    name: "Student_Edit",
+
     data() {
         return {
-            student_info: {
-                name: "",
-                email: "",
-                contact: "",
-                gender: "",
-                dob: "",
-            },
+            student_info: [],
+            // student_show: [],
+
         };
     },
 
-    methods: {
-        // onFileSelected(event) {
-        //     this.image = event.target.files[0];
-        //     console.log(this.image);
-        // },
-        studentData() {
-            // console.log("heki");
-            var form = document.getElementById("form");
-            var formData = new FormData(form);
-            axios
-                .post("VueLaravelTest/public/student-save", formData)
-                .then((res) => {
+    mounted() {
+        this.studentData(this.$route.params.id);
+        // console.log(this.$route.params.id);
+        // this.studentUpdate(this.$route.params.id)
+    },
 
+    methods: {
+        studentData(studentId) {
+            axios
+                .get(
+                    "http://localhost/VueLaravelTest/public/student-edit/" + studentId
+                )
+                .then((res) => {
+                    this.student_info = res.data;
+                    // console.log(this.student_info);
                 });
+        },
+
+        studentUpdate(student_id) {
+            // console.log('ok');
+            var form = document.getElementById('form');
+            console.log(form);
+            var update = new FormData(form);
+            axios.put('http://localhost/VueLaravelTest/public/student-update/' + student_id, update).then((res) => {
+                console.log(res);
+            })
         },
     },
 };

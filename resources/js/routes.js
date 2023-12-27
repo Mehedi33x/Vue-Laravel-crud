@@ -4,10 +4,11 @@ import Home from "./components/Home.vue";
 import text from "./components/text.vue";
 import Student_Data from "./components/student_form.vue";
 import Student_List from "./components/student_list.vue";
+import Student_Edit from "./components/student_edit.vue";
 
 const routes = [
     {
-        name: "home", //rndm name
+        name: "home", //route name
         path: "/home",
         component: Home,
     },
@@ -25,6 +26,11 @@ const routes = [
         name: "student_list",
         path: "/student_list",
         component: Student_List,
+    },
+    {
+        name: "student_edit",
+        path: "/student_edit/:id",
+        component: Student_Edit,
     },
 ];
 const router = createRouter({

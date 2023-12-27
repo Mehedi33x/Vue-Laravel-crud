@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('app');
 })->name('application');
-Route::post('/student-save',[StudentController::class,'studentSave'])->name('student.info.save');
-Route::get('/student-show',[StudentController::class,'studentShow'])->name('student.show');
+Route::post('/student-save', [StudentController::class, 'studentSave'])->name('student.info.save');
+Route::get('/student-show', [StudentController::class, 'studentShow'])->name('student.show');
+Route::get('/student-edit/{id}', [StudentController::class, 'studentEdit'])->name('student.edit');
+Route::put('/student-update/{id}', [StudentController::class, 'studentUpdate'])->name('student.update');
