@@ -49,4 +49,8 @@ class StudentController extends Controller
             ]);
         }
     }
+    public function studentUpdate(Request $request, $id)
+    {
+        dd($request->all());
+    }
 }

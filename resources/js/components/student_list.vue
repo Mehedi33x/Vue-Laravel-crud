@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>User id: {{ $route.params.id }}</h1>
+        <!-- <h1>User id: {{ $route.params.id }}</h1> -->
         <h1 style="text-align: center">Student List</h1>
         <table class="table">
             <thead>

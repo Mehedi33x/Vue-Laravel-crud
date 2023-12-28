@@ -79,12 +79,12 @@ export default {
                 });
         },
 
-        studentUpdate(student_id) {
+        studentUpdate() {
             // console.log('ok');
             var form = document.getElementById('form');
             console.log(form);
             var update = new FormData(form);
-            axios.put('http://localhost/VueLaravelTest/public/student-update/' + student_id, update).then((res) => {
+            axios.post('http://localhost/VueLaravelTest/public/student-update/' + this.student_info.id, update).then((res) => {
                 console.log(res);
             })
         },
