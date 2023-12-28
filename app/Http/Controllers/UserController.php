@@ -66,6 +66,14 @@ class UserController extends Controller
             'gender' => 'required|in:male,female',
         ]);
 
+        $user_image='';
+        if($image=$request->hasFile('image'))
+        {
+            $image=$request->file('image');
+            $user_image=date('Ymdhsi').'.'.$image->getClientOriginalExtension();
+            $image->storeAs('/user',$user_image);
+        }
+
         $user = User::find($id);
         if ($user) {
             $user->update([
@@ -80,5 +88,12 @@ class UserController extends Controller
                 'message' => 'No Student Found'
             ]);
         }
+    }
+
+    public function userDelete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(['message' => 'User deleted successfully']);
     }
 }

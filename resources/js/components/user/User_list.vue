@@ -31,11 +31,9 @@
                                         name: 'user_edit',
                                         params: { id: user.id },
                                     }" class="btn btn-success">Edit</router-link>
-                                  
-                                    <div @click="delete"><router-link to="">Delete</router-link></div>
-                                    <button @click="delete" class="btn btn-danger">Delete</button>
-                                </td>
 
+                                    <button @click="deleteUser(user.id)" class="btn btn-danger">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -57,32 +55,37 @@ export default {
             user_id: '',
         }
     },
-    created() {
+    mounted() {
         // console.log('ok');
         this.allUsers();
     },
     methods: {
         allUsers() {
-            // console.log('ok');
             axios
                 .get("VueLaravelTest/public/user-show")
                 .then((response) => {
                     this.users = response.data;
-                    // console.log('ok');
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
 
-        delete() {
-            console.log('dlt');
-            // if (confirm('Do you want to delete?')) {
+        deleteUser(id) {
+            console.log(id);
 
-            // }
+            if (confirm('Do you want to delete?')) {
+                axios
+                    .get("VueLaravelTest/public/user-delete/" + id)
+                    .then((res) => {
+                        console.log('ok');
+
+                    })
+            }
 
         }
-
     }
 }
 </script>
+
+

@@ -86,6 +86,8 @@ export default {
                     this.user_data = res.data;
                 });
         },
+
+        
         userUpdate() {
             console.log('usrupdt');
             const user_update = document.getElementById('userUpdate');
