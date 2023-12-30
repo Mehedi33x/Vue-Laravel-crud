@@ -22,7 +22,7 @@ class ProductController extends Controller
     }
     public function productCreate(Request $request)
     {
-        // dd($request->all());
+        dd($request->image);
         $request->validate([
             'name' => 'required',
             'category' => 'required',

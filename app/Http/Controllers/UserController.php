@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function userShow()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->get();
         if ($users) {
             return response()->json($users);
         } else {
@@ -22,18 +22,34 @@ class UserController extends Controller
     public function userCreate(Request $request)
     {
         // dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'gender' => 'required|in:male,female',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
+                'gender' => 'required|in:male,female',
+            ],
+            // for custom msg
+            // [
+            //     'name.required' => "Name is needed."
+            // ]
+        );
+
+        $user_image = '';
+        if ($image = $request->hasFile('image')) {
+            $image = $request->file('image');
+            $user_image = date('Ymdhsi') . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('/user', $user_image);
+        }
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'gender' => $request->gender,
+            'skill' => json_encode($request->skills),
+            'image' => $user_image,
         ]);
         // if($user){
 
@@ -58,21 +74,13 @@ class UserController extends Controller
 
     public function userUpdate(Request $request, $id)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
             'gender' => 'required|in:male,female',
         ]);
 
-        $user_image='';
-        if($image=$request->hasFile('image'))
-        {
-            $image=$request->file('image');
-            $user_image=date('Ymdhsi').'.'.$image->getClientOriginalExtension();
-            $image->storeAs('/user',$user_image);
-        }
+
 
         $user = User::find($id);
         if ($user) {
@@ -81,6 +89,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'gender' => $request->gender,
+
             ]);
         } else {
             return response()->json([

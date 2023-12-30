@@ -13,6 +13,7 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Gender</th>
@@ -23,6 +24,7 @@
                         <tbody>
                             <tr v-for="(user, index) in users" :key="index">
                                 <th scope="row">{{ user.id }}</th>
+                                <td><img src="" alt="" srcset=""></td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
                                 <td class="text-capitalize">{{ user.gender }}</td>
@@ -64,6 +66,7 @@ export default {
             axios
                 .get("VueLaravelTest/public/user-show")
                 .then((response) => {
+                    console.log(response.data);
                     this.users = response.data;
                 })
                 .catch((error) => {
@@ -78,8 +81,7 @@ export default {
                 axios
                     .get("VueLaravelTest/public/user-delete/" + id)
                     .then((res) => {
-                        console.log('ok');
-
+                        this.$router.push({ name: 'user_list' });
                     })
             }
 

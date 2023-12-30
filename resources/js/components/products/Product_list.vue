@@ -22,6 +22,7 @@
                     <tbody>
                         <tr v-for="(item, index) in products" :key="index">
                             <th scope="row">{{ item.id }}</th>
+                            
                             <td>{{ item.name }}</td>
                             <td>{{ item.price }}</td>
                             <td class="text-capitalize">{{ item.category }}</td>

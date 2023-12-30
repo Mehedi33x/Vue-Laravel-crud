@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('gender');
-            $table->string('skill')->nullable();
+            $table->json('skill')->nullable();
             $table->softDeletes();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
