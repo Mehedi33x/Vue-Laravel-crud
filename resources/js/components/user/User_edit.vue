@@ -53,7 +53,7 @@
                         <div class="form-check form-check-inline">
                             <!-- <p>Skills {{ this.info.skills }}</p> -->
                             <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox1"
-                                v-model="item.check" :value="item.check" :checked="item.check">
+                                v-model="item.check" :value="item.check" >
                             <label class="form-check-label" for="inlineCheckbox1">{{ item.name }}</label>
                         </div>
                     </div>
@@ -112,9 +112,8 @@ export default {
 
         userUpdate() {
             const user_update = document.getElementById('userUpdate');
-            // console.log(user_update);
-            let update = new FormData(user_update);
-            // console.log(update);
+            const update = new FormData(user_update);
+            update.append('skills', JSON.stringify(this.skills));
             axios.post('http://localhost/VueLaravelTest/public/user-update/' + this.user_data.id, update).then((res) => {
                 console.log(res);
             });

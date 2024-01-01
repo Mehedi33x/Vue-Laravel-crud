@@ -29,10 +29,10 @@
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
                                 <td class="text-capitalize">{{ user.gender }}</td>
-                                <td >
-                                    <p>{{ user.skill }}</p>
-                                    <!-- <p>{{ users.skill.toString() }}</p> -->
+                                <td v-for="(item, index) in JSON.parse(user.skill) " :key="index">
+                                    <p>{{ item.name }}</p>
                                 </td>
+                                <!-- <td>{{ user.skill }}</td> -->
                                 <td>
                                     <router-link :to="{
                                         name: 'user_edit',

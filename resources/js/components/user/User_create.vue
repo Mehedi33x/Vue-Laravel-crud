@@ -47,7 +47,7 @@
 
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox1"
-                            v-model="item.check" :value="item.check" :checked="item.check">
+                            v-model="item.check" :value="item.check"  :checked="item.check">
                         <label class="form-check-label" for="inlineCheckbox1">{{ item.name }}</label>
                     </div>
                 </div>
@@ -64,7 +64,6 @@
 <script>
 import axios from "axios";
 export default {
-
     name: 'User_Create',
 
     data() {
@@ -95,8 +94,8 @@ export default {
 
 
     methods: {
-
         userCreate() {
+            console.log('ok');
             var user_create = document.getElementById('user_create');
             const user_data = new FormData(user_create);
             //////////////////
