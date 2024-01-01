@@ -13,6 +13,9 @@ import User_List from "./components/user/User_list.vue";
 import User_Create from "./components/user/User_create.vue";
 import User_Edit from "./components/user/User_edit.vue";
 
+// Book
+// import Book_list from "./components/book/Book_list.vue";
+
 const routes = [
     {
         name: "home", //route name
@@ -71,6 +74,13 @@ const routes = [
         path: "/user_edit/:id",
         component: User_Edit,
     },
+
+    // Book
+    // {
+    //     name: "book_list",
+    //     path: "book_list",
+    //     component: Book_list,
+    // },
 ];
 const router = createRouter({
     history: createWebHistory(),

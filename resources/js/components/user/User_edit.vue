@@ -9,7 +9,6 @@
                     <label for="">Name</label>
                     <input type="text" v-model="user_data.name" class="form-control" id="name" name="name"
                         placeholder="Name">
-
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -27,8 +26,8 @@
                 <!-- <div class="form-group">
                     <label for="description">Description</label>
                     <input type="text" class="form-control" id="description" name="description" placeholder="">
-
                 </div> -->
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="gender">Gender</label>
@@ -48,10 +47,23 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="form-group col-md-4">
+                <br>
+                <div>
+                    <div v-for="(item, index) in skills" :key="index">
+                        <div class="form-check form-check-inline">
+                            <!-- <p>Skills {{ this.info.skills }}</p> -->
+                            <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox1"
+                                v-model="item.check" :value="item.check" :checked="item.check">
+                            <label class="form-check-label" for="inlineCheckbox1">{{ item.name }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="image">Image</label>
+                    <img width="100" :src="'http://localhost/VueLaravelTest/public/storage/uploads/' + user_data.image"
+                        srcset="">
                     <input type="file" class="form-control" id="" name="image">
-                </div> <br> -->
+                </div> <br>
                 <button type="submit" @click.prevent="userUpdate" class="btn btn-success">Update</button>
             </form>
         </div>
@@ -68,6 +80,13 @@ export default {
         return {
             user_data: [],
             user_id: '',
+            skills: [
+                { name: 'php', check: false },
+                { name: 'js', check: false },
+                { name: 'vue', check: false },
+                { name: 'react', check: false },
+                { name: 'python', check: false },
+            ],
         }
     },
     mounted() {
@@ -83,19 +102,21 @@ export default {
                     "http://localhost/VueLaravelTest/public/user-edit/" + user_Id
                 )
                 .then((res) => {
+                    console.log(res.data);
                     this.user_data = res.data;
+                    this.skills = JSON.parse(res.data.skill);
+                    // console.log();
                 });
         },
 
-        
+
         userUpdate() {
-            console.log('usrupdt');
             const user_update = document.getElementById('userUpdate');
             // console.log(user_update);
-            let update = new FormData(userUpdate);
-            console.log(update);
+            let update = new FormData(user_update);
+            // console.log(update);
             axios.post('http://localhost/VueLaravelTest/public/user-update/' + this.user_data.id, update).then((res) => {
-                // console.log(res);
+                console.log(res);
             });
             this.$router.push({ name: 'user_list' });
         }

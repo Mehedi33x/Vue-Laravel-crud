@@ -75,7 +75,7 @@ export default {
             // console.log('ok');
             var product_create = document.getElementById('product_create');
             // var products_data = new ProductData(product_create);
-            
+
             axios
                 .post("VueLaravelTest/public/product-create", product_create)
                 .then((res) => {

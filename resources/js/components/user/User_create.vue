@@ -8,12 +8,13 @@
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                    <small v-if="errors.name" class="text-danger">{{ errors.name }}</small>
+                    <small v-if="errors.name" class="text-danger">{{ errors.name[0] }}</small>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Email</label>
                         <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
+                        <small v-if="errors.email" class="text-danger">{{ errors.email[0] }}</small>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="">Password</label>
@@ -40,30 +41,16 @@
                     </div>
                 </div>
                 <br>
-                <div class="form-check form-check-inline">
-                    <!-- <p>Skills {{ this.info.skills }}</p> -->
-                    <p>Skills</p>
 
-                    <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox1" value="js"
-                        v-model="skills">
-                    <label class="form-check-label" for="inlineCheckbox1">JS</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox2" value="php"
-                        v-model="skills">
-                    <label class="form-check-label" for="inlineCheckbox2">PHP</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox2" value="python"
-                        v-model="skills">
-                    <label class="form-check-label" for="inlineCheckbox2">Python</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox2" value="ruby"
-                        v-model="skills">
-                    <label class="form-check-label" for="inlineCheckbox2">Ruby</label>
-                </div>
+                <strong>Skills:</strong>
+                <div v-for="(item, index) in skills" :key="index">
 
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="skills[]" id="inlineCheckbox1"
+                            v-model="item.check" :value="item.check" :checked="item.check">
+                        <label class="form-check-label" for="inlineCheckbox1">{{ item.name }}</label>
+                    </div>
+                </div>
                 <div class="form-group col-md-4">
                     <label for="image">Image</label>
                     <input class="form-control-file" type="file" name="image" />
@@ -79,9 +66,18 @@ import axios from "axios";
 export default {
 
     name: 'User_Create',
+
     data() {
         return {
-            skills: [],
+            skills: [
+                { name: 'php', check: false },
+                { name: 'js', check: false },
+                { name: 'vue', check: false },
+                { name: 'react', check: false },
+                { name: 'python', check: false },
+            ],
+
+
             // image_file: null,
             // info: {
             //     name: '',
@@ -91,6 +87,7 @@ export default {
             //     image: null,
             //     skill: [],
             // },
+
             errors: {},
 
         }
@@ -98,28 +95,27 @@ export default {
 
 
     methods: {
-        // onChangeImage(e) {
-        //     console.log('ok',e.target.files[0]);
-        //     this.info.image = e.target.files[0];
-        //     this.image_file = e.target.files[0];
-        //     // console.log(this.info.image);
-        // },
-
-
 
         userCreate() {
             var user_create = document.getElementById('user_create');
             const user_data = new FormData(user_create);
-            user_data.append('skills', this.skills);
+            //////////////////
+            user_data.append('skills', JSON.stringify(this.skills));
             // this.info.skill = JSON.stringify(this.info.skill)
-            axios
-                .post("VueLaravelTest/public/user-create", user_data)
-                .then((res) => {
-                    // console.log(res.data);
-                });
-            this.$router.push({ name: 'user_list' });
+            try {
+                axios
+                    .post("VueLaravelTest/public/user-create", user_data)
+                    .then((res) => {
 
+                    });
+                this.$router.push({ name: 'user_list' });
+            } catch (error) {
+                this.errors = error?.response?.data?.errors;
+            }
         }
     },
 }
 </script>
+
+
+

@@ -1,12 +1,10 @@
 <template>
     <div>
-        <!-- {{ users }} -->
         <div class="mx-5 my-4">
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title" style="text-align: center">User List</h2>
                     <router-link :to="{ name: 'user_create' }" class="btn btn-success">+ User</router-link>
-                    <!-- <a href="{{ route('user.create') }}" class="btn btn-success">+ User</a> -->
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -17,17 +15,24 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Gender</th>
-                                <!-- <th scope="col">Skill</th> -->
+                                <th scope="col">Skill</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(user, index) in users" :key="index">
                                 <th scope="row">{{ user.id }}</th>
-                                <td><img src="" alt="" srcset=""></td>
+                                <td><img width="100"
+                                        :src="'http://localhost/VueLaravelTest/public/storage/uploads/' + user.image"
+                                        srcset="">
+                                </td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
                                 <td class="text-capitalize">{{ user.gender }}</td>
+                                <td >
+                                    <p>{{ user.skill }}</p>
+                                    <!-- <p>{{ users.skill.toString() }}</p> -->
+                                </td>
                                 <td>
                                     <router-link :to="{
                                         name: 'user_edit',
@@ -54,26 +59,34 @@ export default {
     data() {
         return {
             users: [],
+            skills: '',
             user_id: '',
         }
     },
     mounted() {
-        // console.log('ok');
         this.allUsers();
+        // this.skills();
     },
     methods: {
+
+
         allUsers() {
             axios
                 .get("VueLaravelTest/public/user-show")
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.users = response.data;
+
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
-
+        skills() {
+            this.skills = this.users.skill.toString();
+            console.log(this.skills);
+        }
+        ,
         deleteUser(id) {
             console.log(id);
 
@@ -81,7 +94,7 @@ export default {
                 axios
                     .get("VueLaravelTest/public/user-delete/" + id)
                     .then((res) => {
-                        this.$router.push({ name: 'user_list' });
+                        this.allUsers();
                     })
             }
 
