@@ -25,15 +25,28 @@
                     <li class="nav-item">
                         <router-link :to="{ name: 'user_list' }" class="nav-link">User List</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'developers_list' }" class="nav-link">Developers List</router-link>
+                    </li>
                 </ul>
-
             </div>
+
         </nav>
     </div>
+    <div>
+    </div>
+<!--
+    <Developers_create />
+    <Developers_list /> -->
     <router-view></router-view>
+    <div>
+    </div>
 </template>
 <script>
+// import Developers_list from "./components/developers/Developers_list.vue";
+// import Developer_create from "./components/developers/Developer_create.vue";
 export default {
+    // components: { Developers_list, Developer_create },
     name: "App", //component name
     data() {
         return {

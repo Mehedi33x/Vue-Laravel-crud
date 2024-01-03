@@ -29,10 +29,12 @@
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
                                 <td class="text-capitalize">{{ user.gender }}</td>
-                                <td v-for="(item, index) in JSON.parse(user.skill) " :key="index">
-                                    <p>{{ item.name }}</p>
-                                </td>
-                                <!-- <td>{{ user.skill }}</td> -->
+                                <div v-for="(item, index) in JSON.parse(user.skill) " :key="index">
+                                    <td v-if="item.check == true" class="text-capitalize">
+                                        {{ item.name }}
+                                    </td>
+                                </div>
+
                                 <td>
                                     <router-link :to="{
                                         name: 'user_edit',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DevController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -35,3 +36,9 @@ Route::post('/user-create', [UserController::class, 'userCreate'])->name('user.c
 Route::get('/user-edit/{id}', [UserController::class, 'userEdit'])->name('user.edit');
 Route::post('/user-update/{id}', [UserController::class, 'userUpdate'])->name('user.update');
 Route::get('/user-delete/{id}', [UserController::class, 'userDelete'])->name('user.delete');
+
+Route::get('/dev-show', [DevController::class, 'devShow'])->name('dev.show');
+Route::post('/dev-create', [DevController::class, 'devCreate'])->name('dev.create');
+Route::get('/dev_edit/{id}', [DevController::class, 'devEdit'])->name('dev.edit');
+Route::post('/dev_update/{id}', [DevController::class, 'devUpdate'])->name('dev.update');
+Route::get('/dev-delete/{id}', [DevController::class, 'devDelete'])->name('dev.delete');

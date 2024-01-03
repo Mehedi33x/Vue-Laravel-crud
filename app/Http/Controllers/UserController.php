@@ -24,7 +24,6 @@ class UserController extends Controller
     }
     public function userCreate(Request $request)
     {
-        // dd($request->all());
         $validate = $request->validate(
             [
                 'name' => 'required',
@@ -33,6 +32,7 @@ class UserController extends Controller
                 'gender' => 'required|in:male,female',
             ],
         );
+        // dd($validate);
 
         $user_image = '';
         if ($image = $request->hasFile('image')) {
@@ -50,6 +50,17 @@ class UserController extends Controller
             'skill' => $request->skills,
             'image' => $user_image,
         ]);
+        if ($user) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'User added'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User added failed'
+            ]);
+        }
     }
 
     public function userEdit(Request $request, $id)

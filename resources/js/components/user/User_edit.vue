@@ -109,7 +109,6 @@ export default {
                 });
         },
 
-
         userUpdate() {
             const user_update = document.getElementById('userUpdate');
             const update = new FormData(user_update);

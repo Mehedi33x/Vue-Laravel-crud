@@ -13,6 +13,10 @@ import User_List from "./components/user/User_list.vue";
 import User_Create from "./components/user/User_create.vue";
 import User_Edit from "./components/user/User_edit.vue";
 
+// developers list
+import Developers_list from "./components/developers/Developers_list.vue";
+import Developer_edit from "./components/developers/Developer_edit.vue";
+
 // Book
 // import Book_list from "./components/book/Book_list.vue";
 
@@ -73,6 +77,22 @@ const routes = [
         name: "user_edit",
         path: "/user_edit/:id",
         component: User_Edit,
+    },
+
+    {
+        name: "developers_list",
+        path: "/developers_list",
+        component: Developers_list,
+    },
+    {
+        name: "developers_list",
+        path: "/developers_list",
+        component: Developers_list,
+    },
+    {
+        name: "developer_edit",
+        path: "/developer_edit/:id",
+        component: Developer_edit,
     },
 
     // Book
